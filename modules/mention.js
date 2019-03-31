@@ -18,5 +18,11 @@ exports.init = function (bot) {
       let emoji = bot.client.emojis.find(emoji => emoji.name === "InvokerS");
       msg.react(emoji.id).catch(console.error);
     }
+    
+    if(str.includes("op"))
+    {
+      let emoji = bot.client.emojis.find(emoji => emoji.name === "FeelsIceFrog");
+      msg.react(emoji.id).catch(console.error);
+    }
   }
 };

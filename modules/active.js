@@ -2,7 +2,7 @@ const config = require("../config.json");
 
 exports.init = function (bot) {
   
-  const MINS_ACTIVE = 5;
+  const MINS_ACTIVE = 15;
   
   bot.actions.ready.push({
     "name" : "active_setup",
