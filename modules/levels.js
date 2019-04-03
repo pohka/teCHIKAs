@@ -16,11 +16,11 @@ exports.init = function (bot) {
   //xp required per level up
   const xpRequired = [
     100,
-    200,
-    400,
-    680,
+    500,
     800,
-    1200
+    1300,
+    1700,
+    2000
   ];
   
   //view profile

@@ -67,6 +67,7 @@ require("./modules/presence.js").init(bot);
 require("./modules/about.js").init(bot);
 require("./modules/levels.js").init(bot);
 require("./modules/ai.js").init(bot);
+require("./modules/moderation.js").init(bot);
 
 //on Ready event
 client.on('ready', () => {
@@ -95,7 +96,22 @@ client.on('message', msg => {
       {
         if(bot.actions.command[i].key == args[0])
         {
-          bot.actions.command[i].func(msg, args);
+          if(bot.actions.command[i].role !== undefined)
+          {
+            let role = bot.actions.command[i].role;
+            if(msg.member.roles.find(r => r.name === role))
+            {
+              bot.actions.command[i].func(msg, args);
+            }
+            else
+            {
+              msg.reply("you don't have permission to access that command");
+            }
+          }
+          else
+          {
+            bot.actions.command[i].func(msg, args);
+          }
           break;
         }
       }

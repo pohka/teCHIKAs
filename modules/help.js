@@ -17,7 +17,19 @@ exports.init = function (bot) {
       {
         if(bot.actions.command[i].key != "help" && bot.actions.command[i].key.length > 0)
         {
-          desc += "\n" + bot.actions.command[i].key;
+          let role = bot.actions.command[i].role;
+          
+          let isRoleRequired = (role !== undefined);
+          let isAllowed = !isRoleRequired;
+          if(isRoleRequired && msg.member.roles.find(r => r.name === role))
+          {
+            isAllowed = true;
+          }
+          
+          if(isAllowed)
+          {
+            desc += "\n" + bot.actions.command[i].key;
+          }
         }
       }
       desc += "\n\n **More**\nFor more help use: ```!help command```";
@@ -41,7 +53,20 @@ exports.init = function (bot) {
       {
         if(bot.actions.command[i].key == option)
         {
-          if(bot.actions.command[i].help !== undefined)
+          let role = bot.actions.command[i].role;
+          
+          let isRoleRequired = (role !== undefined);
+          let isAllowed = !isRoleRequired;
+          if(isRoleRequired && msg.member.roles.find(r => r.name === role))
+          {
+            isAllowed = true;
+          }
+          else
+          {
+            msg.channel.send("you don't have permission to use that command");
+          }
+          
+          if(isAllowed && bot.actions.command[i].help !== undefined)
           {
             msg.channel.send({embed: {
               title: "Help: " + option,
