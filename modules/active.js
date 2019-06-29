@@ -1,5 +1,7 @@
 const config = require("../config.json");
 
+const ACTIVE_ROLE_ID = "560612089488605196";
+
 exports.init = function (bot) {
   
   const MINS_ACTIVE = 15;
@@ -54,16 +56,18 @@ exports.init = function (bot) {
     if(!found)
     {
       console.log("active user:" + userID);
-      
-      var role = msg.guild.roles.find(role => role.name === "Active");
-      if(role !== undefined)
+      if(msg.member != null)
       {
-        msg.member.addRole(role);
+      //var role = msg.guild.roles.find(role => role.name === "Active");
+      //if(role !== undefined && role != null)
+      //{
+        msg.member.addRole(ACTIVE_ROLE_ID);
         
         bot.activeUserIDs.push({
           "id" : userID,
           "time" : now
         });
+      //}
       }
     }
   }
@@ -84,13 +88,20 @@ exports.init = function (bot) {
         
         //fetch user
         bot.client.fetchUser(bot.activeUserIDs[i].id).then(user => {
-          var guild = bot.client.guilds.get(config.guildID);
-          guild.fetchMember(user).then(member => {
-            var role = guild.roles.find(role => role.name === "Active");
-            member.removeRole(role);
-          });
+          if(user !== undefined && user != null)
+          {
+            var guild = bot.client.guilds.get(config.guildID);
+            guild.fetchMember(user).then(member => {
+              if(member !== undefined && member != null)
+              {
+              //var role = guild.roles.find(role => role.name === "Active");
+                member.removeRole(ACTIVE_ROLE_ID);
+              }
+            });
+          }
         });
         
+        //this wont remove properly, should be removed using the user id
         bot.activeUserIDs.splice(i, 1);
         i--;
       }

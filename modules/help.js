@@ -21,9 +21,15 @@ exports.init = function (bot) {
           
           let isRoleRequired = (role !== undefined);
           let isAllowed = !isRoleRequired;
-          if(isRoleRequired && msg.member.roles.find(r => r.name === role))
+          if(isRoleRequired)
           {
-            isAllowed = true;
+            if(msg.member != null && msg.member.roles != null)
+            {
+              if(msg.member.roles.find(r => r.name === role))
+              {
+                isAllowed = true;
+              }
+            }
           }
           
           if(isAllowed)

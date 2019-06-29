@@ -66,7 +66,7 @@ require("./modules/8ball.js").init(bot);
 require("./modules/presence.js").init(bot);
 require("./modules/about.js").init(bot);
 require("./modules/levels.js").init(bot);
-require("./modules/ai.js").init(bot);
+//require("./modules/ai.js").init(bot);
 require("./modules/moderation.js").init(bot);
 
 //on Ready event
